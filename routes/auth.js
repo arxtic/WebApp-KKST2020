@@ -29,12 +29,11 @@ router.post('/login', (req, res, next) => {
     sql.query(`SELECT * FROM user where username=${user} AND password=${pass}`, (err, rows) => {
       if (err) console.log(err)
       if (!rows) return res.render('login')
-      const token = jwt.sign({id : rows[0].id , username : rows[0].username, role : rows[0].role},"linkenSpher3!")
-      res.json({
-        status : 200,
-        message: "Logged in",
-        token : `Bearer ${token}`
-      })
+      const token = "Bearer " + jwt.sign({id : rows[0].id , username : rows[0].username, fullname : rows[0].fullname,role : rows[0].role },"linkensphere")
+
+      res.cookie('x-auth-token', token)
+      res.redirect('http://localhost:13123/user/profile')
+      
     }) 
 })
 

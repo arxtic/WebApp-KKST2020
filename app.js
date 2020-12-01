@@ -4,11 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-
+var jwt = require('jsonwebtoken')
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/auth');
 var userRouter = require('./routes/user')
+var picRouter = require('./routes/pic')
 
 var app = express();
 
@@ -24,9 +25,30 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const unauthorized = {
+  status : 401,
+  message : "Back to your lane!!"
+}
+
+const isAuth = (req, res, next) => {
+  if (!req.cookies['x-auth-token']) {
+      res.json(unauthorized)
+      return
+  }
+  const auth = req.cookies['x-auth-token']
+  const token  = auth.split(" ")
+
+  if (token) {
+    const creds = jwt.decode(token[1])
+    req.creds = creds
+    next()
+  }
+}
+
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
-app.use('/user', userRouter)
+app.use('/auth', apiRouter);
+app.use('/user', isAuth, userRouter)
+app.use('/pic', picRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    .container
+        center 
+        h1 Hi #{fullname}
+        p.lead
+             | Here's your data
+        form(role='form', action='/user/pic', method='post')
+                .form-group 
+                    img(src=img, alt="", srcset="")
+                .form-group
+                    label(for='imageurl') Image Url
+                    input.form-control(type='text', id='user', name='imageurl', placeholder='Enter link to change your profile picture')
+                button.btn.btn-primary(type='submit') Submit
+        
+        form(role='form', action='#', method='post')
+            .form-group
+                label(for='username') Username
+                input.form-control(type='text', id='user', name='username', placeholder='enter a username',value=username)
+            .form-group
+                label(for='password') Full name
+                input.form-control(type='fullname', id='password', name='password', placeholder='enter a password', value=fullname)
+        a.btn.btn-md.btn-danger(role='button', href='/logout') Logout
