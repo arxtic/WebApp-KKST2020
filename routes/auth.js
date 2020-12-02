@@ -14,7 +14,7 @@ router.post('/register', (req, res, next) => {
   const user = sql.escape(username)
   const pass = sql.escape(password)
   sql.query(`INSERT INTO user (username, password, role) VALUES(${user}, ${pass}, 2)`, (err, data) => {
-    if (err) return err
+    if (err) console.log(err)
     res.json({
       status  : 200, 
       message : "Data created",

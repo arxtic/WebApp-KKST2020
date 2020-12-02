@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var axios = require('axios').default
 var jwt = require('jsonwebtoken')
 
 const unauthorized = {

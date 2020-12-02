@@ -1,13 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var sql = require('../util/connection')
-var http = require('http')
 var fs = require('fs')
-var jwt = require('jsonwebtoken')
-var bcrypt = require('bcrypt')
-var limit = require('express-rate-limit');
-const curlRequest = require('curl-request');
-const curl = new (require( 'curl-request' ))();
+var needle = require('needle')
 
 const error = {
     status : 400,
@@ -61,18 +56,12 @@ router.post('/pic', async (req, res, next) => {
 
     console.log(req.body)
     let {imageurl} = req.body
-
-    const danger = ['localhost','127.0.0.1','0.0.0.0']
-    danger.forEach(a => {
-        if(imageurl.includes(a)) {
-            res.json(error)
-            return
-        }
-    });
     const file = fs.createWriteStream("public/images/me.jpeg");
-    const request = await http.get(imageurl, function(response) {
-        response.pipe(file);
-    })
+    const request = await needle.get(imageurl).pipe(file).on('done', function() {
+        console.log('done');    
+    });
+
+    console.log(request)
 
     if (!request) {
         res.json(error)

@@ -4,8 +4,6 @@ var sql = require('../util/connection')
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcrypt')
 var limit = require('express-rate-limit');
-const curlRequest = require('curl-request');
-const curl = new (require( 'curl-request' ))();
 
 router.post('/', (req, res, next) => {
 
