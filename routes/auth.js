@@ -32,7 +32,7 @@ router.post('/login', (req, res, next) => {
       const token = "Bearer " + jwt.sign({id : rows[0].id , username : rows[0].username, fullname : rows[0].fullname,role : rows[0].role },"linkensphere")
 
       res.cookie('x-auth-token', token)
-      res.redirect('http://localhost:13123/user/profile')
+      res.redirect('/user/profile')
       
     }) 
 })

@@ -19,7 +19,7 @@ router.get('/profile', (req, res, next) => {
     const id = req.creds.id
     res.render('me', {
         fullname : req.creds.fullname,
-        profile : 'http://localhost:13123/user/detail?id='+ id
+        profile : '/user/detail?id='+ id
     })
 })
 
@@ -68,7 +68,7 @@ router.post('/pic', async (req, res, next) => {
         return
     }
 
-    res.redirect('http://localhost:13123/user/detail?id=1')
+    res.redirect('/user/detail?id=1')
 
     })
 

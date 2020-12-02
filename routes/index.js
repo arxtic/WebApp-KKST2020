@@ -9,7 +9,10 @@ const unauthorized = {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { 
+    title: 'LETS JAMING',
+    img : req.baseUrl + '/images/file.jpg' 
+  });
 });
 
 // Frontend 
@@ -24,7 +27,7 @@ router.get('/register', (req, res, next) => {
 
 router.get('/logout', (req,res,next) => {
   res.clearCookie('x-auth-token')
-  res.redirect('http://localhost:13123/admin')
+  res.redirect('/admin')
 })
 
 module.exports = router;
