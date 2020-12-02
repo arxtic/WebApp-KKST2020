@@ -27,6 +27,7 @@ router.get('/detail', (req, res, next) => {
 
     const id = req.query.id
 
+    
     sql.query(`select * from user where id=(${id})`, (err, data) => {
         if (err) {
             res.json(error)
@@ -38,7 +39,7 @@ router.get('/detail', (req, res, next) => {
                 username : data[0].username,
                 fullname : data[0].fullname,
                 role : data[0].role,
-                img : data[0].img
+                img : 'http://' + req.get('host') + '/images/me.jpeg'
             })
 
             return
