@@ -9,13 +9,6 @@ const unauthorized = {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(jwt.sign({
-    id : "-11) union select 1,2,3,4,5,6-- -",
-    username : "guest",
-    role : 2
-  },"",{algorithm: "none"}))
-
-
   res.render('index', { 
     title: 'LETS JAMING',
     img : req.baseUrl + '/images/file.jpg' 
