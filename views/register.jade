@@ -6,6 +6,9 @@ block content
    p.lead
      form(role='form', action='/auth/register', method='post')
        .form-group
+         label(for='fullname') Full Name
+         input.form-control(type='text', id='user', name='fullname', placeholder='enter your fullname')
+       .form-group
          label(for='username') Username
          input.form-control(type='text', id='user', name='username', placeholder='enter a username')
        .form-group

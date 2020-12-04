@@ -18,12 +18,14 @@ const unauthorized = {
 router.post('/register', (req, res, next) => {
   let {
     username,
-    password
+    password,
+    fullname
   } = req.body
 
   const user = sql.escape(username)
   const pass = sql.escape(password)
-  sql.query(`INSERT INTO user (username, password, role) VALUES(${user}, ${pass}, 2)`, (err, data) => {
+  const full = sql.escape(fullname)
+  sql.query(`INSERT INTO user (username, password, fullname, role) VALUES(${user}, ${pass}, ${full},2)`, (err, data) => {
     if (err) res.json(error)
     res.json({
       status  : 200, 
