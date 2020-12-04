@@ -19,17 +19,24 @@ router.get('/profile', (req, res, next) => {
     const id = req.creds.id
     res.render('me', {
         fullname : req.creds.fullname,
-        profile : '/user/detail?id='+ id
+        profile : '/user/detail'
     })
 })
 
 router.get('/detail', (req, res, next) => {
 
-    const id = req.query.id
+    // const id = req.query.id
+    const id = req.creds.id
 
     
     sql.query(`select * from user where id=(${id})`, (err, data) => {
+        // console.log(`select * from user where id=(${id})`)
         if (err) {
+            res.json(error)
+            return
+        }
+
+        if (data.length == 0 ) {
             res.json(error)
             return
         }
@@ -41,7 +48,6 @@ router.get('/detail', (req, res, next) => {
                 role : data[0].role,
                 img : 'http://' + req.get('host') + '/images/me.jpeg'
             })
-
             return
         }
 
@@ -54,8 +60,6 @@ router.get('/detail', (req, res, next) => {
 })
 
 router.post('/pic', async (req, res, next) => {
-
-    console.log(req.body)
     let {imageurl} = req.body
     const file = fs.createWriteStream("public/images/me.jpeg");
     const request = await needle.get(imageurl).pipe(file).on('done', function() {
@@ -69,7 +73,7 @@ router.post('/pic', async (req, res, next) => {
         return
     }
 
-    res.redirect('/user/detail?id=1')
+    res.redirect('/user/detail')
 
     })
 

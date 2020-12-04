@@ -9,7 +9,6 @@ var jwt = require('jsonwebtoken')
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/auth');
 var userRouter = require('./routes/user')
-var picRouter = require('./routes/pic')
 
 var app = express();
 
@@ -48,7 +47,6 @@ const isAuth = (req, res, next) => {
 app.use('/', indexRouter);
 app.use('/auth', apiRouter);
 app.use('/user', isAuth, userRouter)
-app.use('/pic', picRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
